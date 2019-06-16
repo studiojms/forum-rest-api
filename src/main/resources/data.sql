@@ -1,0 +1,25 @@
+INSERT INTO CATEGORY VALUES (1, 'General');
+INSERT INTO CATEGORY VALUES (2, 'Software');
+
+INSERT INTO SUBCATEGORY VALUES (1, 'Finance', 1);
+INSERT INTO SUBCATEGORY VALUES (2, 'Other', 1);
+INSERT INTO SUBCATEGORY VALUES (3, 'Programming', 2);
+INSERT INTO SUBCATEGORY VALUES (4, 'Infrastructure', 2);
+
+INSERT INTO COURSE VALUES (1, 'How to become rich', 1);
+INSERT INTO COURSE VALUES (2, 'Java Programming', 3);
+INSERT INTO COURSE VALUES (3, 'Networks', 4);
+
+INSERT INTO PROFILE VALUES (1, 'Admin');
+INSERT INTO PROFILE VALUES (2, 'User');
+
+INSERT INTO USER VALUES (1, 'user@user.com', 'John Doe', '12345');
+INSERT INTO USER VALUES (2, 'mary@christmas.com', 'Mary Christmas', '54321');
+
+INSERT INTO USER_PROFILES VALUES (1, 2);
+INSERT INTO USER_PROFILES VALUES (2, 1);
+INSERT INTO USER_PROFILES VALUES (2, 2);
+
+INSERT INTO TOPIC VALUES (1, CURRENT_TIMESTAMP(), 'I am having problems when trying to be rich. I would like some help', 'NOT_ANSWERED', 'Problems being rich', 1, 1);
+
+INSERT INTO ANSWER VALUES (1, CURRENT_TIMESTAMP(), false, 'Try to work', 1, 2);
