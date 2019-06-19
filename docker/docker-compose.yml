@@ -1,0 +1,17 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: pass123
+      POSTGRES_DB: forum
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 9090:8080

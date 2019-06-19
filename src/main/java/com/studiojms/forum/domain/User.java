@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
+@Table(name = "forum_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
