@@ -17,6 +17,8 @@ public class TopicTO {
     private LocalDateTime date = LocalDateTime.now();
     private String title;
     private String message;
+    private UserTO user;
+    private CourseTO course;
     private TopicStatus status = TopicStatus.NOT_ANSWERED;
 
     public TopicTO(Topic topic) {
@@ -24,6 +26,8 @@ public class TopicTO {
         this.date = topic.getDate();
         this.title = topic.getTitle();
         this.message = topic.getMessage();
+        this.user = UserTO.create(topic.getUser());
+        this.course = CourseTO.create(topic.getCourse());
         this.status = topic.getStatus();
     }
 
@@ -34,4 +38,5 @@ public class TopicTO {
     public static List<TopicTO> create(List<Topic> topics) {
         return topics.stream().map(TopicTO::new).collect(Collectors.toList());
     }
+
 }
