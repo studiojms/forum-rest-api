@@ -1,6 +1,5 @@
 package com.studiojms.forum.domain;
 
-import com.studiojms.forum.to.TopicTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

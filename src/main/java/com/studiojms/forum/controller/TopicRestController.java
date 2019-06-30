@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class TopicRestController {
     }
 
     @PostMapping
-    public ResponseEntity<TopicTO> create(@RequestBody TopicTO topicTO, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<TopicTO> create(@RequestBody @Valid TopicTO topicTO, UriComponentsBuilder uriComponentsBuilder) {
         ResponseEntity response;
 
         try {

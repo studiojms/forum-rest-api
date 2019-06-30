@@ -5,6 +5,9 @@ import com.studiojms.forum.domain.TopicStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,12 +16,26 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class TopicTO {
 
+    @NotNull
     private Long id;
+
+    @NotNull
     private LocalDateTime date = LocalDateTime.now();
+
+    @NotEmpty
+    @Size(min = 5)
     private String title;
+
+    @NotEmpty
+    @Size(min = 20)
     private String message;
+
+    @NotNull
     private UserTO user;
+
+    @NotNull
     private CourseTO course;
+
     private TopicStatus status = TopicStatus.NOT_ANSWERED;
 
     public TopicTO(Topic topic) {
