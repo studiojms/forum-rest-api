@@ -7,6 +7,7 @@ import com.studiojms.forum.repository.ITopicRepository;
 import com.studiojms.forum.to.TopicTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,13 +26,34 @@ public class TopicService {
         return topicRepository.findAll();
     }
 
+    public Topic findById(Long id) {
+        return topicRepository.findById(id).orElse(null);
+    }
+
     public List<Topic> findByCourseNameLike(String courseName) {
         return topicRepository.findAllByCourseNameContaining(courseName);
     }
 
+    @Transactional
     public Topic create(TopicTO topicTO) {
         Topic topic = this.convertToDomain(topicTO);
         return topicRepository.save(topic);
+    }
+
+    @Transactional
+    public Topic update(Long id, TopicTO topicTO) {
+        final Topic existingRecord = this.findById(id);
+        if (existingRecord == null) {
+            throw new RuntimeException("Entity not found with id " + id);
+        }
+        Topic topic = this.convertToDomain(topicTO);
+        topic.setId(id);
+        return topicRepository.save(topic);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        topicRepository.deleteById(id);
     }
 
     public Topic convertToDomain(TopicTO topicTO) {

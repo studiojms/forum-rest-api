@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class TopicTO {
 
-    @NotNull
     private Long id;
 
     @NotNull

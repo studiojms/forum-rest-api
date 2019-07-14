@@ -55,5 +55,50 @@ public class TopicRestController {
 
         return response;
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TopicTO> findById(@PathVariable Long id) {
+        ResponseEntity response;
+
+        try {
+            Topic topic = topicService.findById(id);
+            response = ResponseEntity.ok(TopicTO.create(topic));
+        } catch (Exception e) {
+            response = ResponseEntity.noContent().build();
+        }
+        return response;
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TopicTO> update(@PathVariable Long id, @RequestBody @Valid TopicTO topicTO) {
+        ResponseEntity response;
+
+        try {
+            Topic topic = topicService.update(id, topicTO);
+
+            response = ResponseEntity.ok(TopicTO.create(topic));
+        } catch (Exception e) {
+            LOGGER.error("An error occurred when updating the topic " + id);
+            e.printStackTrace();
+
+            response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+        return response;
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        ResponseEntity response;
+
+        try {
+            topicService.delete(id);
+            response = ResponseEntity.ok().build();
+        } catch (Exception e) {
+            response = ResponseEntity.badRequest().build();
+        }
+        return response;
+    }
+
 }
 
