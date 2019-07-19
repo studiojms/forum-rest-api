@@ -4,7 +4,7 @@ services:
     image: postgres
     ports:
       - "5432:5432"
-    restart: always
+    restart: on-failure
     environment:
       POSTGRES_USER: dbuser
       POSTGRES_PASSWORD: pass123
@@ -12,6 +12,6 @@ services:
 
   adminer:
     image: adminer
-    restart: always
+    restart: on-failure
     ports:
       - 9090:8080
