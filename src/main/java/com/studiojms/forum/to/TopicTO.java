@@ -4,6 +4,7 @@ import com.studiojms.forum.domain.Topic;
 import com.studiojms.forum.domain.TopicStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -16,43 +17,47 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class TopicTO {
 
-    private Long id;
+	private Long id;
 
-    @NotNull
-    private LocalDateTime date = LocalDateTime.now();
+	@NotNull
+	private LocalDateTime date = LocalDateTime.now();
 
-    @NotEmpty
-    @Size(min = 5)
-    private String title;
+	@NotEmpty
+	@Size(min = 5)
+	private String title;
 
-    @NotEmpty
-    @Size(min = 20)
-    private String message;
+	@NotEmpty
+	@Size(min = 20)
+	private String message;
 
-    @NotNull
-    private UserTO user;
+	@NotNull
+	private UserTO user;
 
-    @NotNull
-    private CourseTO course;
+	@NotNull
+	private CourseTO course;
 
-    private TopicStatus status = TopicStatus.NOT_ANSWERED;
+	private TopicStatus status = TopicStatus.NOT_ANSWERED;
 
-    public TopicTO(Topic topic) {
-        this.id = topic.getId();
-        this.date = topic.getDate();
-        this.title = topic.getTitle();
-        this.message = topic.getMessage();
-        this.user = UserTO.create(topic.getUser());
-        this.course = CourseTO.create(topic.getCourse());
-        this.status = topic.getStatus();
-    }
+	public TopicTO(Topic topic) {
+		this.id = topic.getId();
+		this.date = topic.getDate();
+		this.title = topic.getTitle();
+		this.message = topic.getMessage();
+		this.user = UserTO.create(topic.getUser());
+		this.course = CourseTO.create(topic.getCourse());
+		this.status = topic.getStatus();
+	}
 
-    public static TopicTO create(Topic topic) {
-        return new TopicTO(topic);
-    }
+	public static TopicTO create(Topic topic) {
+		return new TopicTO(topic);
+	}
 
-    public static List<TopicTO> create(List<Topic> topics) {
-        return topics.stream().map(TopicTO::new).collect(Collectors.toList());
-    }
+	public static List<TopicTO> create(List<Topic> topics) {
+		return topics.stream().map(TopicTO::new).collect(Collectors.toList());
+	}
+
+	public static Page<TopicTO> create(Page<Topic> topics) {
+		return topics.map(TopicTO::new);
+	}
 
 }

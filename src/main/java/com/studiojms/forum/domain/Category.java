@@ -13,13 +13,14 @@ import java.util.List;
 @Data
 @Entity
 public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    private List<Subcategory> subcategories = new ArrayList<>();
+	private String name;
+
+	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+	private List<Subcategory> subcategories = new ArrayList<>();
 
 }

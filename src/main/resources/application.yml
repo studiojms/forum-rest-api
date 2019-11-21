@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: dev-docker
 
 ---
 
@@ -42,4 +42,4 @@ spring:
           lob:
             non_contextual_creation: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update

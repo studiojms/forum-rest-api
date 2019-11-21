@@ -7,16 +7,18 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class CourseTO {
-    private Long id;
-    private String name;
 
-    public CourseTO(Course course) {
-        this.id = course.getId();
-        this.name = course.getName();
-    }
+	private Long id;
 
-    public static CourseTO create(Course course) {
-        return new CourseTO(course);
-    }
+	private String name;
+
+	public CourseTO(Course course) {
+		this.id = course.getId();
+		this.name = course.getName();
+	}
+
+	public static CourseTO create(Course course) {
+		return new CourseTO(course);
+	}
 
 }

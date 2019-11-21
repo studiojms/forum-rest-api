@@ -6,6 +6,9 @@ import com.studiojms.forum.to.TopicTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,86 +22,95 @@ import java.util.List;
 @RequestMapping("/topics")
 public class TopicRestController {
 
-    @Autowired
-    private TopicService topicService;
+	@Autowired
+	private TopicService topicService;
 
-    private final Logger LOGGER = LoggerFactory.getLogger(TopicRestController.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(TopicRestController.class);
 
-    @GetMapping
-    public List<TopicTO> list(String course) {
-        List<Topic> topics;
-        if (course != null) {
-            topics = topicService.findByCourseNameLike(course);
-        } else {
-            topics = topicService.list();
-        }
+	@GetMapping
+	public Page<TopicTO> list(@RequestParam(required = false) String course,
+							  @RequestParam(defaultValue = "0") int page,
+							  @RequestParam(defaultValue = "10") int recordsPerPage) {
+		Pageable pageable = PageRequest.of(page, recordsPerPage);
 
-        return TopicTO.create(topics);
-    }
+		Page<Topic> topics;
+		if (course != null) {
+			topics = topicService.findByCourseNameLike(course, pageable);
+		}
+		else {
+			topics = topicService.list(pageable);
+		}
 
-    @PostMapping
-    public ResponseEntity<TopicTO> create(@RequestBody @Valid TopicTO topicTO, UriComponentsBuilder uriComponentsBuilder) {
-        ResponseEntity response;
+		return TopicTO.create(topics);
+	}
 
-        try {
-            Topic topic = topicService.create(topicTO);
+	@PostMapping
+	public ResponseEntity<TopicTO> create(@RequestBody @Valid TopicTO topicTO,
+			UriComponentsBuilder uriComponentsBuilder) {
+		ResponseEntity response;
 
-            URI uri = uriComponentsBuilder.path("/topics/{id}").buildAndExpand(topic.getId()).toUri();
+		try {
+			Topic topic = topicService.create(topicTO);
 
-            response = ResponseEntity.created(uri).body(TopicTO.create(topic));
-        } catch (Exception e) {
-            LOGGER.error("An error occurred when creating a new topic");
-            e.printStackTrace();
+			URI uri = uriComponentsBuilder.path("/topics/{id}").buildAndExpand(topic.getId()).toUri();
 
-            response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+			response = ResponseEntity.created(uri).body(TopicTO.create(topic));
+		}
+		catch (Exception e) {
+			LOGGER.error("An error occurred when creating a new topic");
+			e.printStackTrace();
 
-        return response;
-    }
+			response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<TopicTO> findById(@PathVariable Long id) {
-        ResponseEntity response;
+		return response;
+	}
 
-        try {
-            Topic topic = topicService.findById(id);
-            response = ResponseEntity.ok(TopicTO.create(topic));
-        } catch (Exception e) {
-            response = ResponseEntity.noContent().build();
-        }
-        return response;
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<TopicTO> findById(@PathVariable Long id) {
+		ResponseEntity response;
 
-    @PutMapping("/{id}")
-    public ResponseEntity<TopicTO> update(@PathVariable Long id, @RequestBody @Valid TopicTO topicTO) {
-        ResponseEntity response;
+		try {
+			Topic topic = topicService.findById(id);
+			response = ResponseEntity.ok(TopicTO.create(topic));
+		}
+		catch (Exception e) {
+			response = ResponseEntity.noContent().build();
+		}
+		return response;
+	}
 
-        try {
-            Topic topic = topicService.update(id, topicTO);
+	@PutMapping("/{id}")
+	public ResponseEntity<TopicTO> update(@PathVariable Long id, @RequestBody @Valid TopicTO topicTO) {
+		ResponseEntity response;
 
-            response = ResponseEntity.ok(TopicTO.create(topic));
-        } catch (Exception e) {
-            LOGGER.error("An error occurred when updating the topic " + id);
-            e.printStackTrace();
+		try {
+			Topic topic = topicService.update(id, topicTO);
 
-            response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+			response = ResponseEntity.ok(TopicTO.create(topic));
+		}
+		catch (Exception e) {
+			LOGGER.error("An error occurred when updating the topic " + id);
+			e.printStackTrace();
 
-        return response;
-    }
+			response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable Long id) {
-        ResponseEntity response;
+		return response;
+	}
 
-        try {
-            topicService.delete(id);
-            response = ResponseEntity.ok().build();
-        } catch (Exception e) {
-            response = ResponseEntity.badRequest().build();
-        }
-        return response;
-    }
+	@DeleteMapping("/{id}")
+	public ResponseEntity delete(@PathVariable Long id) {
+		ResponseEntity response;
+
+		try {
+			topicService.delete(id);
+			response = ResponseEntity.ok().build();
+		}
+		catch (Exception e) {
+			response = ResponseEntity.badRequest().build();
+		}
+		return response;
+	}
 
 }
-

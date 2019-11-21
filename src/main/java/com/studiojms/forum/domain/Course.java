@@ -14,13 +14,14 @@ import javax.persistence.ManyToOne;
 @Data
 @Entity
 public class Course {
-    @Id
-    @GeneratedValue
-    private Long id;
 
-    private String name;
+	@Id
+	@GeneratedValue
+	private Long id;
 
-    @ManyToOne
-    private Subcategory subcategory;
+	private String name;
+
+	@ManyToOne
+	private Subcategory subcategory;
 
 }

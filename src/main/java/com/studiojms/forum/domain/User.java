@@ -14,17 +14,18 @@ import java.util.List;
 @Entity
 @Table(name = "forum_user")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String email;
+	private String name;
 
-    private String password;
+	private String email;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Profile> profiles = new ArrayList<>();
+	private String password;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Profile> profiles = new ArrayList<>();
 
 }

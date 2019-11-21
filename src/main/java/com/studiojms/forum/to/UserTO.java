@@ -7,18 +7,20 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class UserTO {
-    private Long id;
-    private String name;
 
-    public UserTO(User user) {
-        if (user != null) {
-            this.id = user.getId();
-            this.name = user.getName();
-        }
-    }
+	private Long id;
 
-    public static UserTO create(User user) {
-        return new UserTO(user);
-    }
+	private String name;
+
+	public UserTO(User user) {
+		if (user != null) {
+			this.id = user.getId();
+			this.name = user.getName();
+		}
+	}
+
+	public static UserTO create(User user) {
+		return new UserTO(user);
+	}
 
 }

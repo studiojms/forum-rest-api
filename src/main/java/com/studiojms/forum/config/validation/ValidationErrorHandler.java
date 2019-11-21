@@ -16,17 +16,18 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ValidationErrorHandler {
 
-    @Autowired
-    private MessageSource messageSource;
+	@Autowired
+	private MessageSource messageSource;
 
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public List<ValidationErrorTO> handle(MethodArgumentNotValidException exception) {
-        List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public List<ValidationErrorTO> handle(MethodArgumentNotValidException exception) {
+		List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
 
-        return fieldErrors.stream().map(fieldError -> {
-            String message = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
-            return new ValidationErrorTO(fieldError.getField(), message);
-        }).collect(Collectors.toList());
-    }
+		return fieldErrors.stream().map(fieldError -> {
+			String message = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
+			return new ValidationErrorTO(fieldError.getField(), message);
+		}).collect(Collectors.toList());
+	}
+
 }

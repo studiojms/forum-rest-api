@@ -1,9 +1,21 @@
+buildscript {
+    dependencies {
+        classpath("io.spring.javaformat:spring-javaformat-gradle-plugin:0.0.15")
+    }
+}
+
 plugins {
-    id 'org.springframework.boot' version '2.1.6.RELEASE'
+    id 'org.springframework.boot' version '2.2.1.RELEASE'
     id 'java'
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'io.spring.javaformat'
+apply plugin: 'checkstyle'
+
+checkstyle {
+    toolVersion = "8.22"
+}
 
 group = 'com.studiojms'
 version = '0.0.1-SNAPSHOT'
@@ -27,11 +39,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-    compile group: 'com.h2database', name: 'h2'
-//    compile group: 'org.postgresql', name: 'postgresql'
+    testImplementation group: 'com.h2database', name: 'h2'
+    implementation group: 'org.postgresql', name: 'postgresql'
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    checkstyle("io.spring.javaformat:spring-javaformat-checkstyle:0.0.15")
 }

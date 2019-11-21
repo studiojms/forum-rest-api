@@ -1,6 +1,5 @@
 package com.studiojms.forum.domain;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,20 +12,21 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 public class Answer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    private LocalDateTime date = LocalDateTime.now();
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String message;
+	private LocalDateTime date = LocalDateTime.now();
 
-    private Boolean isSolution = false;
+	private String message;
 
-    @ManyToOne
-    private Topic topic;
+	private Boolean isSolution = false;
 
-    @ManyToOne
-    private User user;
+	@ManyToOne
+	private Topic topic;
+
+	@ManyToOne
+	private User user;
 
 }

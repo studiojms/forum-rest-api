@@ -8,19 +8,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CourseService {
-    @Autowired
-    private ICourseRepository courseRepository;
 
-    public Course convertToDomain(CourseTO courseTO) {
-        Course course = null;
+	@Autowired
+	private ICourseRepository courseRepository;
 
-        if (courseTO.getId() != null) {
-            course = courseRepository.findById(courseTO.getId()).orElse(null);
-        } else if (courseTO.getName() != null && !courseTO.getName().isEmpty()) {
-            course = courseRepository.findByName(courseTO.getName());
-        }
+	public Course convertToDomain(CourseTO courseTO) {
+		Course course = null;
 
-        return course;
-    }
+		if (courseTO.getId() != null) {
+			course = courseRepository.findById(courseTO.getId()).orElse(null);
+		}
+		else if (courseTO.getName() != null && !courseTO.getName().isEmpty()) {
+			course = courseRepository.findByName(courseTO.getName());
+		}
+
+		return course;
+	}
+
 }
-

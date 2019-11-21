@@ -12,13 +12,13 @@ import javax.persistence.*;
 @Entity
 public class Subcategory {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String name;
+	private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Category category;
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Category category;
 
 }

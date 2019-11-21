@@ -14,26 +14,27 @@ import java.util.List;
 @Data
 @Entity
 public class Topic {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    private LocalDateTime date = LocalDateTime.now();
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String title;
+	private LocalDateTime date = LocalDateTime.now();
 
-    private String message;
+	private String title;
 
-    @ManyToOne
-    private Course course;
+	private String message;
 
-    @ManyToOne
-    private User user;
+	@ManyToOne
+	private Course course;
 
-    @OneToMany(mappedBy = "topic")
-    private List<Answer> answers = new ArrayList<>();
+	@ManyToOne
+	private User user;
 
-    @Enumerated(EnumType.STRING)
-    private TopicStatus status = TopicStatus.NOT_ANSWERED;
+	@OneToMany(mappedBy = "topic")
+	private List<Answer> answers = new ArrayList<>();
+
+	@Enumerated(EnumType.STRING)
+	private TopicStatus status = TopicStatus.NOT_ANSWERED;
 
 }
