@@ -6,9 +6,12 @@ import com.studiojms.forum.to.TopicTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +19,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/topics")
@@ -28,11 +30,9 @@ public class TopicRestController {
 	private final Logger LOGGER = LoggerFactory.getLogger(TopicRestController.class);
 
 	@GetMapping
+	@Cacheable("topicsList")
 	public Page<TopicTO> list(@RequestParam(required = false) String course,
-							  @RequestParam(defaultValue = "0") int page,
-							  @RequestParam(defaultValue = "10") int recordsPerPage) {
-		Pageable pageable = PageRequest.of(page, recordsPerPage);
-
+							  @PageableDefault(size = 10, sort = "id", page = 0, direction = Sort.Direction.ASC) Pageable pageable) {
 		Page<Topic> topics;
 		if (course != null) {
 			topics = topicService.findByCourseNameLike(course, pageable);
@@ -45,6 +45,7 @@ public class TopicRestController {
 	}
 
 	@PostMapping
+	@CacheEvict(value = "topicsList", allEntries = true)
 	public ResponseEntity<TopicTO> create(@RequestBody @Valid TopicTO topicTO,
 			UriComponentsBuilder uriComponentsBuilder) {
 		ResponseEntity response;
@@ -81,6 +82,7 @@ public class TopicRestController {
 	}
 
 	@PutMapping("/{id}")
+	@CacheEvict(value = "topicsList", allEntries = true)
 	public ResponseEntity<TopicTO> update(@PathVariable Long id, @RequestBody @Valid TopicTO topicTO) {
 		ResponseEntity response;
 
@@ -100,6 +102,7 @@ public class TopicRestController {
 	}
 
 	@DeleteMapping("/{id}")
+	@CacheEvict(value = "topicsList", allEntries = true)
 	public ResponseEntity delete(@PathVariable Long id) {
 		ResponseEntity response;
 

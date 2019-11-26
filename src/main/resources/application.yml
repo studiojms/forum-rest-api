@@ -1,6 +1,7 @@
 spring:
   profiles:
-    active: dev-docker
+#    active: dev-docker
+    active: dev
 
 ---
 
@@ -16,6 +17,10 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
 
   h2:
     console:
