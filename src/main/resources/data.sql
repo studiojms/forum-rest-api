@@ -13,8 +13,8 @@ INSERT INTO course VALUES (3, 'Networks', 4);
 INSERT INTO profile VALUES (1, 'Admin');
 INSERT INTO profile VALUES (2, 'User');
 
-INSERT INTO forum_user VALUES (1, 'user@user.com', 'John Doe', '12345');
-INSERT INTO forum_user VALUES (2, 'mary@christmas.com', 'Mary Christmas', '54321');
+INSERT INTO forum_user VALUES (1, 'user@user.com', 'John Doe', '$2y$12$qnXIRkvAN3kjJzg0eyyEPu9ll8MqfcZYrv.BwyDD2X/w8YZuVAvhu');--12345
+INSERT INTO forum_user VALUES (2, 'mary@christmas.com', 'Mary Christmas', '$2y$12$LvhoAA4yMuf/SDpdSpUZXulI6VHGUX1YPOxEaV129WhvYrauAkCc.');--54321
 
 INSERT INTO forum_user_profiles VALUES (1, 2);
 INSERT INTO forum_user_profiles VALUES (2, 1);

@@ -3,6 +3,8 @@ package com.studiojms.forum.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Data
 @Entity
-public class Profile {
+public class Profile implements GrantedAuthority {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,4 +23,8 @@ public class Profile {
 
 	private String name;
 
+	@Override
+	public String getAuthority() {
+		return name;
+	}
 }
