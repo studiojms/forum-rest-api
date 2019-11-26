@@ -12,6 +12,10 @@ public class UserService {
 	@Autowired
 	private IUserRepository userRepository;
 
+	public User findById(Long id) {
+		return userRepository.findById(id).orElse(null);
+	}
+
 	public User convertToDomain(UserTO userTO) {
 		User user = null;
 

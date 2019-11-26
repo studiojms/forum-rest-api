@@ -2,7 +2,10 @@ spring:
   profiles:
 #    active: dev-docker
     active: dev
-
+forum:
+  jwt:
+    expiration: 3600000
+    secret: VCTmtvHoR6x7knqi_5hrChk9Zlit-w8wpxL8O3kbgeU
 ---
 
 spring:

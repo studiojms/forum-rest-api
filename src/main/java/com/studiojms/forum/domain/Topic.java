@@ -31,7 +31,7 @@ public class Topic {
 	@ManyToOne
 	private User user;
 
-	@OneToMany(mappedBy = "topic")
+	@OneToMany(mappedBy = "topic", cascade = CascadeType.ALL)
 	private List<Answer> answers = new ArrayList<>();
 
 	@Enumerated(EnumType.STRING)
