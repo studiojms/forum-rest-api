@@ -2,6 +2,16 @@ spring:
   profiles:
 #    active: dev-docker
     active: dev
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 forum:
   jwt:
     expiration: 3600000
