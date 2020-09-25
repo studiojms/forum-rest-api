@@ -86,3 +86,17 @@ spring:
             non_contextual_creation: true
     hibernate:
       ddl-auto: update
+
+---
+
+spring:
+  profiles: prod
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: ${FORUM_DATABASE_URL}
+    username: ${FORUM_DATABASE_USERNAME}
+    password: ${FORUM_DATABASE_PASSWORD}
+
+forum:
+  jwt:
+    secret: ${FORUM_JWT_SECRET}
